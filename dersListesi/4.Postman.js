@@ -4,13 +4,12 @@ const mongoose = require("mongoose");
 mongoose
   .connect('"mongodb://127.0.0.1:27017/smartedu-db', {
     useNewUrlParser: true,
-    useUnifiedTopology: true, // bunlar deprecate hatalarini onlemek icin
+    useUnifiedTopology: true, /
     useFindAndModify: false,
     useCreateIndex: true,
   })
   .then(() => {
-    // ? then yazmamizin sebebi mongoose.connect bize bir promise doner o yuzden yazmak sart degil biz oylesine yazdik
-    console.log("db connected sucesfully");
+console.log("db connected sucesfully");
   });
 
 // ! 2- sonra module yazariz ve burdaki properteilere  verileri gondeririz models klasorun icinde bir js dosyasina
@@ -21,13 +20,13 @@ const Schema = mongoose.Schema;
 const CourseSchema = new Schema({
   name: {
     type: String,
-    unique: true, // zorunl olucak demek
-    required: true, // zorunlu olucak demek
+    unique: true,
+    required: true,
   },
   description: {
     type: String,
     required: true,
-    trim: true, // Mesala biz burda diyelim kurs tanimini girdik ve diyelim yazimizda bosluklar var onden ver arkdan. bu bosluklari kaldirmamizi saglar trim:true
+    trim: true,
   },
   createdAt: {
     type: Date,
@@ -48,7 +47,7 @@ exports.createCourse = async (req, res) => {
   try {
     res.status(201).json({
       status: "success",
-      course, // burasi bize course doner yukardaki body olani sorguladigimiz
+      course,
     });
   } catch {
     res.status(404).json({
@@ -64,8 +63,7 @@ const courseController = require("../controllers/courseController");
 
 const router = express.Router();
 
-// http://localhost:3000/courses
-// router.route("/") sadece (/) olsada bir sey olmazdi cunku app jsde app.use("/courses", courseRoute); course route caigiriyor.
+
 router.route("/").post(courseController.createCourse);
 
 module.exports = router;
@@ -74,3 +72,13 @@ module.exports = router;
 const courseRoute = require("./routes/courseRoute");
 app.use("/courses", courseRoute);
 
+// ! 6 - adim
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+// ! 7 - adim postmanden  http://localhost:3000/courses suraya sunu gonder post metod olarak
+{
+    "name":"Python for Beginner",
+    "description":"Python description"
+
+}
