@@ -82,3 +82,7 @@ app.use(express.urlencoded({ extended: true }))
     "description":"Python description"
 
 }
+
+// ! 8 - get request yapmamiz lazim
+
+router.route("/").get(courseController.createCourse); // bunu eklememiz lazim

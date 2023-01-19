@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 const CourseSchema = new Schema({
   name: {
     type: String,
-    unique: true, // zorunl olucak demek
-    required: true, // zorunlu olucak demek
+    unique: true, 
+    required: true,
   },
   description: {
     type: String,
     required: true,
-    trim: true, // Mesala biz burda diyelim kurs tanimini girdik ve diyelim yazimizda bosluklar var onden ver arkdan. bu bosluklari kaldirmamizi saglar trim:true
+    trim: true,
   },
   createdAt: {
     type: Date,
