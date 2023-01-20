@@ -1,7 +1,7 @@
 // ! controlleri findById den findOne cevirdik
 exports.getCourse = async (req, res) => {
   try {
-    const course = await Course.findOne({ slug: req.params.slug });  // findByID >>> findOne yaptik, _idleride slug yaptik
+    const course = await Course.findOne({ slug: req.params.slug }); // findByID >>> findOne yaptik, _idleride slug yaptik
 
     res.status(200).render("course", {
       page_name: "courses",
@@ -38,7 +38,9 @@ const CourseSchema = new Schema({
 
 // normal fonksyion kullanmamizin sebebi this kavramina sahib olmasindan dolayi
 CourseSchema.pre("validate", function (next) {
-  this.slug = slugify(this.name, {  // this.name olmasinin sebebi sen bunun namediden slugu olustur demek
+  // validate middleware imis documana gore
+  this.slug = slugify(this.name, {
+    // this.name olmasinin sebebi sen bunun namediden slugu olustur demek
     lower: true, // kucuk harf olsun
     strict: true, // buda her hangi yazi karakterini birakip sadece stringleri okumayi sagliyor
   });
@@ -52,6 +54,6 @@ const express = require("express");
 const courseController = require("../controllers/courseController");
 
 const router = express.Router();
-router.route("/:slug").get(courseController.getCourse);  // _id iken slug yaptik
+router.route("/:slug").get(courseController.getCourse); // _id iken slug yaptik
 
 module.exports = router;

@@ -21,6 +21,10 @@ const CourseSchema = new Schema({
     type: String,
     unique: true,
   },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+  },
 });
 
 // normal fonksyion kullanmamizin sebebi this kavramina sahib olmasindan dolayi
